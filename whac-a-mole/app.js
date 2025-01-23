@@ -1,50 +1,65 @@
-const squares = document.querySelectorAll('.square')
-const mole = document.querySelector('.mole')
-const timeLeft = document.querySelector('#time-left')
-const score = document.querySelector('#score')
+const squares = document.querySelectorAll(".square");
+const timeLeft = document.querySelector("#time-left");
+const score = document.querySelector("#score");
 
-let result = 0
-let hitPosition
-let currentTime = 60
-let timerId = null
+let result = 0;
+let hitPosition;
+let currentTime = 60;
+let timerId = null;
+let speed = 1000; // Initial speed in milliseconds
 
+// Function to randomly assign moles to squares
 function randomSquare() {
-  squares.forEach(square => {
-    square.classList.remove('mole')
-  })
+  squares.forEach((square) => {
+    square.classList.remove("mole", "bonus-mole");
+  });
 
-  let randomSquare = squares[Math.floor(Math.random() * 9)]
-  randomSquare.classList.add('mole')
+  const randomSquare = squares[Math.floor(Math.random() * 9)];
+  const isBonus = Math.random() < 0.2; // 20% chance for a bonus mole
 
-  hitPosition = randomSquare.id
+  if (isBonus) {
+    randomSquare.classList.add("bonus-mole");
+    hitPosition = "bonus-" + randomSquare.id;
+  } else {
+    randomSquare.classList.add("mole");
+    hitPosition = randomSquare.id;
+  }
 }
 
-squares.forEach(square => {
-  square.addEventListener('mousedown', () => {
-    if (square.id == hitPosition) {
-      result++
-      score.textContent = result
-      hitPosition = null
+// Event listener for hitting the mole
+squares.forEach((square) => {
+  square.addEventListener("mousedown", () => {
+    if (square.id === hitPosition) {
+      result += square.classList.contains("bonus-mole") ? 5 : 1; // Bonus moles give extra points
+      score.textContent = result;
+      hitPosition = null;
+
+      // Make the game harder by reducing the interval as score increases
+      if (result % 10 === 0 && speed > 400) {
+        clearInterval(timerId);
+        speed -= 100;
+        timerId = setInterval(randomSquare, speed);
+      }
     }
-  })
-})
+  });
+});
 
+// Function to move moles at intervals
 function moveMole() {
-  timerId = setInterval(randomSquare, 500)
+  timerId = setInterval(randomSquare, speed);
 }
 
-moveMole()
-
+// Countdown timer
 function countDown() {
- currentTime--
- timeLeft.textContent = currentTime
+  currentTime--;
+  timeLeft.textContent = currentTime;
 
- if (currentTime == 0) {
-   clearInterval(countDownTimerId)
-   clearInterval(timerId)
-   alert('GAME OVER! Your final score is ' + result)
- }
-
+  if (currentTime === 0) {
+    clearInterval(countDownTimerId);
+    clearInterval(timerId);
+    alert("GAME OVER! Your final score is " + result);
+  }
 }
 
-let countDownTimerId = setInterval(countDown, 1000)
+moveMole();
+let countDownTimerId = setInterval(countDown, 1000);

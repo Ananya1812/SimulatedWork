@@ -2,16 +2,51 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>Rock Paper Scissors Tutorial</title>
+    <title>Rock Paper Scissors Game</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      button {
+        padding: 15px 30px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        transition: transform 0.2s ease;
+      }
+      button:hover {
+        transform: scale(1.1);
+      }
+      button:active {
+        transform: scale(0.9);
+      }
+      h2 {
+        margin: 10px;
+      }
+      #scoreboard {
+        margin-top: 20px;
+        font-size: 18px;
+      }
+    </style>
   </head>
   <body>
     <h2>Computer Choice: <span id="computer-choice"></span></h2>
     <h2>Your Choice: <span id="user-choice"></span></h2>
     <h2>Result: <span id="result"></span></h2>
 
-    <button id="rock">rock</button>
-    <button id="paper">paper</button>
-    <button id="scissors">scissors</button>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <div id="scoreboard">
+      <p>Wins: <span id="wins">0</span></p>
+      <p>Losses: <span id="losses">0</span></p>
+      <p>Draws: <span id="draws">0</span></p>
+    </div>
 
     <script src="app.js" charset="utf-8"></script>
   </body>

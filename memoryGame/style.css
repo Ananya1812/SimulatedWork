@@ -1,6 +1,73 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 20px 0;
+  color: #333;
+}
+
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    width: 400px;
-    height: 300px;
+  display: grid;
+  grid-template-columns: repeat(4, 100px); /* 4 cards per row */
+  grid-gap: 15px; /* Spacing between cards */
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.grid img {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.grid img:hover {
+  transform: scale(1.1);
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+#result {
+  font-size: 1.2em;
+  margin-top: 20px;
+}
+
+.timer,
+.score,
+.best-time {
+  margin: 10px;
+  font-size: 1.2em;
+  color: #666;
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(
+      2,
+      100px
+    ); /* 2 cards per row on small screens */
+    grid-gap: 10px;
   }
+}
